@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawingFrame extends JFrame {
-	private JButton jbLine, jbCircle, clear;
+	private JButton jbLine, jbCircle, clear, jbRectangle, jbSelect, jbOval;
 	private JPanel toolboxPanel, toolboxPadding;
 	public static DrawingCanvas canvas;
 
 	public DrawingFrame() {
-		super("Drawing Toolkit");
+		super("Dynamic Drawing Toolkit");
 		JLabel statusLabel = new JLabel(" ");
 
 		// Canvas
@@ -30,8 +30,11 @@ public class DrawingFrame extends JFrame {
 		canvas.setBorder(BorderFactory.createLineBorder(Color.gray, 15));
 
 		clear = new JButton("Clear");
+		jbSelect = new JButton("Select");
 		jbLine = new JButton("Line");
 		jbCircle = new JButton("Circle");
+		jbRectangle = new JButton("Rectangle");
+		jbOval = new JButton("Oval");
 
 		toolboxPanel = new JPanel();
 		toolboxPanel.setLayout(new GridLayout(1, 1, 1, 1));
@@ -39,8 +42,11 @@ public class DrawingFrame extends JFrame {
 		toolboxPadding.setLayout(new FlowLayout(FlowLayout.LEADING, 1, 1));
 
 		toolboxPanel.add(clear);
+		toolboxPanel.add(jbSelect);
 		toolboxPanel.add(jbLine);
 		toolboxPanel.add(jbCircle);
+		toolboxPanel.add(jbRectangle);
+		toolboxPanel.add(jbOval);
 		toolboxPadding.add(toolboxPanel);
 
 		add(toolboxPadding, BorderLayout.NORTH);
@@ -50,6 +56,9 @@ public class DrawingFrame extends JFrame {
 		clear.addActionListener(buttonHandler);
 		jbLine.addActionListener(buttonHandler);
 		jbCircle.addActionListener(buttonHandler);
+		jbRectangle.addActionListener(buttonHandler);
+		jbOval.addActionListener(buttonHandler);
+		jbSelect.addActionListener(buttonHandler);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -77,14 +86,19 @@ public class DrawingFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("Clear")) {
 				canvas.clearDrawing();
-			} else if (e.getActionCommand().equals("Line")) {
+			} else if (e.getActionCommand().equals("Select")) {
 				canvas.setCurrentShapeType(0);
-			} else if (e.getActionCommand().equals("Circle")) {
+			} else if (e.getActionCommand().equals("Line")) {
 				canvas.setCurrentShapeType(1);
+			} else if (e.getActionCommand().equals("Circle")) {
+				canvas.setCurrentShapeType(2);
+			} else if (e.getActionCommand().equals("Rectangle")) {
+				canvas.setCurrentShapeType(3);
+			} else if (e.getActionCommand().equals("Oval")) {
+				canvas.setCurrentShapeType(4);
 			}
 
 		}
 
 	}
-
 }
